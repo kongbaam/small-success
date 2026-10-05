@@ -83,27 +83,28 @@
 
     <div class="content" id="main-screen">
         <div class="input-group">
-            <input type="text" id="emp-id" class="id-input" placeholder="KnoxID를 입력해주세요">
+            <input type="text" id="emp-id" class="id-input" placeholder="사용하실 닉네임을 입력해주세요">
         </div>
 
-        <button class="draw-btn" id="start-survey-btn" onclick="startSurvey()">오늘 나의 성취 기록하기 👆</button>
+        <!-- ★ 문구 통일: 작은 성공 기록하기 ★ -->
+        <button class="draw-btn" id="start-survey-btn" onclick="startSurvey()">오늘의 '작은 성공' 기록하기 👆</button>
         <button class="collection-btn" onclick="showCollection()">나의 수집 현황 보기 📚</button>
         <div class="warning-text">
             ※ 브라우저 데이터 삭제 시 수집 현황이 초기화 될 수 있으니 주의 부탁드립니다.
         </div>
         
-        <!-- ★ 수정된 관리자용 결과 매핑표 ★ -->
+        <!-- 관리자용 로직 매핑 설명표 -->
         <div id="admin-mapping-view">
             <h4>🛠️ [관리자] 어떤 카드가 나올까?</h4>
             <div style="font-size: 11px; color: #777; margin-bottom: 15px; text-align: center;">(Q1, Q2 모두 긍정 답변 시에만 '에너지 High'로 분류)</div>
             
             <b>🟢 에너지 High 상태일 때</b><br>
-            - 성과 달성(Q4) ➔ 🔥 <b>열정 만수르</b><br>
+            - 작은 성공 달성(Q4) ➔ 🔥 <b>열정 만수르</b><br>
             - 무사히 버팀(Q4) + 협업함(Q3) ➔ 🌟 <b>분위기 메이커</b><br>
             - 무사히 버팀(Q4) + 혼자함(Q3) ➔ ☕ <b>평온한 마스터</b><br><br>
             
             <b>🔴 에너지 Low 상태일 때 (지침)</b><br>
-            - 성과 달성(Q4) ➔ 💪 <b>불굴의 히어로</b><br>
+            - 작은 성공 달성(Q4) ➔ 💪 <b>불굴의 히어로</b><br>
             - 무사히 버팀(Q4) + 협업함(Q3) ➔ 👼 <b>따뜻한 천사</b><br>
             - 무사히 버팀(Q4) + 혼자함(Q3) ➔ 🧘 <b>생존 전문가</b>
         </div>
@@ -125,7 +126,8 @@
             <button class="option-btn q4" onclick="selectOption('q4', 'work', this)">🎯 계획했던 일을 끝내고 작은 성과를 냈어요!</button>
             <button class="option-btn q4" onclick="selectOption('q4', 'survive', this)">🧘 특별한 성과는 없어도, 흔들림 없이 버텨냈어요!</button>
 
-            <button class="submit-survey-btn" id="submit-survey-btn" onclick="drawCard()">오늘의 성취감 카드 획득하기 ✨</button>
+            <!-- ★ 문구 통일: 작은 성공 카드 획득하기 ★ -->
+            <button class="submit-survey-btn" id="submit-survey-btn" onclick="drawCard()">나만의 '작은 성공' 카드 획득하기 ✨</button>
         </div>
 
         <div id="result-card">
@@ -152,8 +154,9 @@
         <div class="grid" id="collection-grid"></div>
     </div>
 
+    <!-- ★ 문구 수정: 떨어진 의욕과 에너지 ★ -->
     <div class="clinic-banner">
-        떨어진 성취감과 에너지,<br>
+        떨어진 의욕과 에너지,<br>
         롱런을 위한 든든한 페이스메이커와<br>
         다음 스텝을 준비해 보세요
         <br>
@@ -163,7 +166,8 @@
 
 <script>
     const cardData = {
-        "high-work": { id: "C1", emoji: "🔥", title: "열정 만수르", desc: "에너지를 쏟아 업무를 해낸 당신! 오늘의 성취가 내일의 성장을 만듭니다." },
+        // ★ 카드 설명 문구 내의 '성취'도 '작은 성공'으로 통일 ★
+        "high-work": { id: "C1", emoji: "🔥", title: "열정 만수르", desc: "에너지를 쏟아 업무를 해낸 당신! 오늘의 작은 성공이 내일의 성장을 만듭니다." },
         "high-social": { id: "C2", emoji: "🌟", title: "분위기 메이커", desc: "당신의 긍정적인 에너지가 동료들에게 큰 힘이 되었습니다. 멋진 팀워크에요!" },
         "high-survive": { id: "C3", emoji: "☕", title: "평온한 마스터", desc: "큰 이슈 없이 하루를 통제한 당신의 여유! 스스로에게 커피 한 잔을 선물하세요." },
         "low-work": { id: "C4", emoji: "💪", title: "불굴의 히어로", desc: "지친 상태에서도 끝까지 책임감을 발휘한 당신, 오늘은 정말 푹 쉬어야 합니다!" },
@@ -183,7 +187,7 @@
         clickCount++;
         if (clickCount >= 5 && !isTestMode) {
             isTestMode = true;
-            alert("🛠️️ [관리자 모드 활성화] 무제한 카드 발급 및 매핑표 확인이 가능합니다.");
+            alert("🛠 [관리자 모드 활성화] 무제한 카드 발급 및 매핑표 확인이 가능합니다.");
             document.getElementById('header-area').style.background = "linear-gradient(135deg, #e67e22, #d35400)";
             document.getElementById('admin-mapping-view').style.display = "block";
         }
@@ -192,7 +196,7 @@
     function startSurvey() {
         const empIdInput = document.getElementById('emp-id').value.trim();
         if (empIdInput === "") {
-            alert("인증을 위해 KnoxID를 먼저 입력해 주세요.");
+            alert("닉네임을 먼저 입력해 주세요.");
             document.getElementById('emp-id').focus();
             return;
         }
@@ -200,7 +204,8 @@
         const today = new Date().toLocaleDateString('ko-KR');
         const lastDrawDate = localStorage.getItem('lastDrawDate');
         if (!isTestMode && lastDrawDate === today) {
-            alert("오늘 나의 성취 기록을 이미 완료하셨습니다! 내일 다시 만나요 🌙");
+            // ★ 알림창 문구 통일 ★
+            alert("오늘의 '작은 성공' 기록을 이미 완료하셨습니다! 내일 다시 만나요 🌙");
             return; 
         }
 
@@ -249,7 +254,7 @@
         const resultKey = `${finalEnergy}-${finalSituation}`;
         const selectedCard = cardData[resultKey];
 
-        document.getElementById('ticket-info').innerText = `KnoxID: ${empIdInput} | 발급번호: ${uniqueTicketNo}`;
+        document.getElementById('ticket-info').innerText = `닉네임: ${empIdInput} | 발급번호: ${uniqueTicketNo}`;
         document.getElementById('card-emoji').innerText = selectedCard.emoji;
         document.getElementById('card-title').innerText = selectedCard.title;
         document.getElementById('card-desc').innerText = selectedCard.desc;
@@ -279,7 +284,8 @@
         document.getElementById('stat-kinds').innerText = uniqueKinds;
 
         if(collection.length === 0) {
-            grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #999;">아직 수집된 성취 기록이 없습니다.<br>메인 화면에서 카드를 발급받아보세요!</p>';
+            // ★ 빈 화면 안내문 통일 ★
+            grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #999;">아직 수집된 \'작은 성공\' 기록이 없습니다.<br>메인 화면에서 카드를 발급받아보세요!</p>';
             return;
         }
 
