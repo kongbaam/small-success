@@ -35,7 +35,7 @@
   button{font-family:inherit}
   .app{width:100%;max-width:480px;min-height:100vh;position:relative;
     background:linear-gradient(180deg,var(--city) 0%,#4D6F96 40%,#33506F 100%);
-    padding-bottom:110px;overflow-x:hidden;box-shadow:0 0 30px rgba(0,0,0,.25)}
+    padding-bottom:28px;overflow-x:hidden;box-shadow:0 0 30px rgba(0,0,0,.25)}
   .hidden{display:none!important}
 
   /* ── 헤더 (포스터 장면) ── */
@@ -175,12 +175,15 @@
   .admin table{width:100%;border-collapse:collapse;margin-top:6px}
   .admin td{padding:4px 2px;border-bottom:1px dashed #f0c79a;vertical-align:top}
 
-  /* ── 열린상담센터 배너 ── */
-  .clinic{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:480px;z-index:50;
-    background:var(--navy);border-top:3px solid var(--sky-btn);color:#fff;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-    display:flex;align-items:center;gap:12px}
-  .clinic p{margin:0;flex:1;font-size:13px;line-height:1.45;word-break:keep-all;color:#dfe5f3}
-  .clinic a{flex:none;background:var(--sky-btn);color:var(--navy);text-decoration:none;font-family:'Jua',sans-serif;font-size:15px;padding:10px 14px;border-radius:999px}
+  /* ── 열린상담센터 안내 ── */
+  .clinic{margin:26px 16px 0;padding:18px 16px;border-radius:20px;background:rgba(20,30,58,.55);border:2px solid rgba(134,182,214,.5);color:#fff;text-align:center}
+  .clinic h4{margin:0 0 6px;font-family:'Jua',sans-serif;font-weight:400;font-size:18px;color:var(--moon)}
+  .clinic p{margin:0;font-size:13px;line-height:1.6;color:#dfe5f3;word-break:keep-all}
+  .route{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;margin:12px 0 4px}
+  .route span{background:var(--paper);color:var(--navy);font-weight:700;font-size:13px;padding:7px 11px;border-radius:999px}
+  .route i{font-style:normal;color:var(--sky-btn);font-weight:700}
+  .route span.go{background:var(--sky-btn)}
+  .clinic small{display:block;margin-top:8px;font-size:11px;color:#aab6d3}
 
   .toast{position:fixed;left:50%;top:20px;transform:translate(-50%,-20px);max-width:420px;width:calc(100% - 32px);
     background:rgba(20,28,52,.94);color:#fff;padding:14px 16px;border-radius:14px;font-size:14px;line-height:1.5;text-align:center;
@@ -372,11 +375,12 @@
     <p class="note" style="color:#c3cde0" id="c-src"></p>
   </section>
 
-  <!-- ═══════════ 열린상담센터 배너 ═══════════ -->
-  <div class="clinic">
-    <p>떨어진 의욕과 에너지,<br>롱런을 위한 든든한 페이스메이커와 함께해요</p>
-    <a id="clinic-link" href="#" target="_blank" rel="noopener">열린상담센터 예약</a>
-  </div>
+  <!-- ═══════════ 열린상담센터 안내 (모든 화면 하단) ═══════════ -->
+  <aside class="clinic">
+    <h4>💬 혼자 버티기 힘든 날엔, 열린상담센터</h4>
+    <p>떨어진 의욕과 에너지,<br>롱런을 위한 든든한 페이스메이커와 함께 다음 스텝을 준비해 보세요.</p>
+    <div class="route"><span>Knox 메인 상단</span><i>›</i><span>열린상담센터</span><i>›</i><span class="go">상담예약</span></div>
+  </aside>
 
   <div class="toast" id="toast"></div>
 </div>
@@ -397,8 +401,6 @@ const CONFIG = {
   CONTACT: 'Talent Experience그룹 송인호(inho915.song)',
   // 반짝 카드 확률 (0 ~ 1)
   SHINY_RATE: 0.1,
-  // 열린상담센터 예약 링크
-  CLINIC_URL: 'https://사내상담센터예약링크.com',
 };
 
 /* ════════════════════════════════════════════
@@ -765,7 +767,6 @@ function exitTest(){
    초기화
    ════════════════════════════════════════════ */
 (function init(){
-  $('clinic-link').href = CONFIG.CLINIC_URL;
   document.querySelectorAll('.goal-days').forEach(e => e.textContent = CONFIG.GOAL_DAYS);
   document.querySelectorAll('.goal-kinds').forEach(e => e.textContent = CONFIG.GOAL_KINDS);
   if (!CONFIG.COLLECT_EMP_ID){ $('field-emp').classList.add('hidden'); $('consent-row').classList.add('hidden'); }
